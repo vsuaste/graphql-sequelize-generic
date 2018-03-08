@@ -1,6 +1,6 @@
 # graphql-sequelize-generic
 Example of server using sequelize and graphql with the intention that most of the code
-can be generated automatically.
+can be generated automatically for a given model.
 
 ## Files
 server.js    ----- >  only contains server setup
