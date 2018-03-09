@@ -7,13 +7,11 @@ server.js    ----- >  only contains server setup
 
 connection.js ----- > credentials for the database
 
-crud.js ----- > class for basic CRUD operations, constructor receives a model
-
 ### Given a model the next files will be generated:
 
-model.js
+model.js ----- > define model with sequelize
 
-resolvers.js
+resolvers.js ----- > class for basic CRUD operations
 
 ## TODO
 - [ ] Function for copy resolver to root
