@@ -1,4 +1,11 @@
 Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+const operatorsAliases = {
+  $eq: Op.eq,
+  $and: Op.and,
+  $or: Op.or,
+  $like: Op.like,
+};
 
 const Conn = new Sequelize(
   'postgres',
@@ -7,7 +14,8 @@ const Conn = new Sequelize(
   {
     dialect: 'postgres',
     host: '127.0.0.1'
-  }
+  },
+  {operatorsAliases}
 );
 
 module.exports.connection = Conn;

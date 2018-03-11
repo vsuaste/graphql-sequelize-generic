@@ -8,9 +8,24 @@ type Person{
     email: String!
   }
 
+  enum Operator{
+    like
+    or
+    and
+    eq
+  }
+
+  input searchArgInput{
+    field: String
+    value: String
+    operator: Operator
+    searchArg: [searchArgInput]
+  }
+
   type Query{
     people: [Person]
     readOne(id: ID): Person!
+    readAll(input: searchArgInput): [Person]
   }
 
   type Mutation{

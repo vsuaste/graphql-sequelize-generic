@@ -4,10 +4,44 @@
 */
  const{person} = require('./model');
 
+ class searchArg{
+   constructor({field, value, operator, searchArg}){
+     this.field = field;
+     this.value = value;
+     this.operator = operator;
+     this.searchArg = searchArg
+   }
+
+   toSequelize(){
+     let searchArgsInSequelize = {};
+     //console.log(typeof this.searchArg );
+     if(this.searchArg === ''|| this.searchArg == null)
+     {
+       searchArgsInSequelize[this.field] = {
+          ['$'+this.operator] : this.value
+       };
+     }else{
+       searchArgsInSequelize['$'+this.operator] = this.searchArg.map(sa => {
+         let new_sa = new searchArg(sa);
+         return new_sa.toSequelize();
+       });
+     }
+     return searchArgsInSequelize;
+   }
+ };
+
+
  module.exports = {
 
    people: function(){
     return person.findAll();
+  },
+
+  readAll: function({input}){
+    let arg = new searchArg(input);
+    let arg_sequelize = arg.toSequelize();
+    return person.findAll({where: arg_sequelize});
+
   },
 
   readOne: function({id}){
@@ -39,5 +73,4 @@
       })
     });
   }
-  
 }

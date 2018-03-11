@@ -13,6 +13,7 @@ var Schema = buildSchema(schema);
  var root = {
    people: resolvers.people,
    readOne: resolvers.readOne,
+   readAll: resolvers.readAll,
    addPerson: resolvers.addPerson,
    deletePerson: resolvers.deletePerson,
    updatePerson: resolvers.updatePerson
