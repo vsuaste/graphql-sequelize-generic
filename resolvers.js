@@ -14,18 +14,30 @@
 
    toSequelize(){
      let searchArgsInSequelize = {};
-     //console.log(typeof this.searchArg );
-     if(this.searchArg === ''|| this.searchArg == null)
+     
+     if(this.searchArg === undefined && this.field === undefined)
+     {
+       searchArgsInSequelize['$'+this.operator] = this.value;
+
+     }else if(this.searchArg === undefined)
      {
        searchArgsInSequelize[this.field] = {
           ['$'+this.operator] : this.value
        };
-     }else{
+     }else if(this.field === undefined){
        searchArgsInSequelize['$'+this.operator] = this.searchArg.map(sa => {
          let new_sa = new searchArg(sa);
          return new_sa.toSequelize();
        });
+     }else{
+        searchArgsInSequelize[this.field] = {
+          ['$'+this.operator] : this.searchArg.map(sa => {
+            let new_sa = new searchArg(sa);
+            return new_sa.toSequelize();
+          })
+        }
      }
+
      return searchArgsInSequelize;
    }
  };

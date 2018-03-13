@@ -5,6 +5,8 @@ const operatorsAliases = {
   $and: Op.and,
   $or: Op.or,
   $like: Op.like,
+  $between: Op.between,
+  $in: Op.in
 };
 
 const Conn = new Sequelize(

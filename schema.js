@@ -8,17 +8,26 @@ type Person{
     email: String!
   }
 
-  enum Operator{
+  enum PersonField{
+    id
+    firstName
+    lastName
+    email
+  }
+
+  enum PersonOperator{
     like
     or
     and
     eq
+    between
+    in
   }
 
   input searchArgInput{
-    field: String
+    field: PersonField
     value: String
-    operator: Operator
+    operator: PersonOperator
     searchArg: [searchArgInput]
   }
 
