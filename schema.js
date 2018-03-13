@@ -24,9 +24,14 @@ type Person{
     in
   }
 
+  input personValue{
+    type: String
+    value: String!
+  }
+
   input searchArgInput{
     field: PersonField
-    value: String
+    value: personValue
     operator: PersonOperator
     searchArg: [searchArgInput]
   }
