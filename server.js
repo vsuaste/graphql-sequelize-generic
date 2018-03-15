@@ -5,27 +5,11 @@
  var schema = require('./schema');
 
  var node_acl = require('acl');
- //var acl_rules = require('./acl_rules');
+ var {aclRules} = require('./acl_rules');
  var acl = new node_acl(new node_acl.memoryBackend());
 
-/*
-ACL rules
-  TODO: change to separate file
-*/
- acl.allow([{
-   roles: 'administrator',
-   allows: [{
-     resources: 'person',
-     permissions: ['get','put', 'delete','update']
-   }]
- },
- {
-   roles: 'guest',
-   allows: [{
-     resources: 'person',
-     permissions: ['get']
-   }]
- }]);
+ /* set authorization rules from file acl_rules.js */
+ acl.allow(aclRules);
 
  /* Schema */
 var Schema = buildSchema(schema);
