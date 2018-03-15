@@ -1,4 +1,9 @@
+/*
+  Class to parse search argument for any model
+*/
+
 module.exports = class searchArg{
+
   constructor({field, value, operator, searchArg}){
     this.field = field;
     this.value = this.constructor.parseValue(value);

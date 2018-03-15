@@ -40,7 +40,7 @@ type Person{
 
   type Query{
     people: [Person]
-    readOne(id: ID): Person!
+    readOne(id: ID): Person
     readAll(input: searchArgInput): [Person]
   }
 
