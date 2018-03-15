@@ -4,6 +4,29 @@
  var resolvers = require('./resolvers');
  var schema = require('./schema');
 
+ var node_acl = require('acl');
+ //var acl_rules = require('./acl_rules');
+ var acl = new node_acl(new node_acl.memoryBackend());
+
+/*
+ACL rules
+  TODO: change to separate file
+*/
+ acl.allow([{
+   roles: 'administrator',
+   allows: [{
+     resources: 'person',
+     permissions: ['get','put', 'delete','update']
+   }]
+ },
+ {
+   roles: 'guest',
+   allows: [{
+     resources: 'person',
+     permissions: ['get']
+   }]
+ }]);
+
  /* Schema */
 var Schema = buildSchema(schema);
 
@@ -23,12 +46,18 @@ var Schema = buildSchema(schema);
  const APP_PORT = 3000;
  const app = express();
 
- app.use('/graphql', graphqlHTTP({
+ //request is passed as context by default
+ app.use('/graphql', graphqlHTTP((req)=> ({
    schema: Schema,
    rootValue: root,
    pretty: true,
-   graphiql: true
- }));
+   graphiql: true,
+   context: {
+     request: req,
+     acl: acl
+   }
+ })));
+
 
  app.listen(APP_PORT, ()=>{
    console.log(`App listening on port ${APP_PORT}`);

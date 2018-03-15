@@ -6,6 +6,8 @@ type Person{
     firstName: String!
     lastName: String
     email: String!
+    token: String
+    role: String
   }
 
   enum PersonField{
@@ -43,7 +45,7 @@ type Person{
   }
 
   type Mutation{
-    addPerson(firstName: String!, lastName: String, email: String!): Person!
+    addPerson(firstName: String!, lastName: String, email: String!, password: String!, role: String): Person!
     deletePerson(id: ID!): String!
     updatePerson(id: ID!, firstName: String, lastName: String, email: String): Person!
   }
