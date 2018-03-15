@@ -2,7 +2,7 @@
   Resolvers for CRUD basic operations
   given a model defined with sequelize
 */
- const{person} = require('./models/model');
+ const{person} = require('./models/person');
  const jwt =  require('jsonwebtoken');
  const bcrypt = require('bcryptjs');
  const searchArg = require('./utils/search-argument');
@@ -101,7 +101,7 @@
       }else{
         console.log("Permission denied");
         return null;
-      }  
+      }
     }catch(err){
       console.log("Invalid token");
       return null;
