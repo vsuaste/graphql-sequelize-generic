@@ -1,7 +1,8 @@
  var express = require('express');
  var graphqlHTTP = require('express-graphql');
  var {buildSchema} = require('graphql');
- var resolvers = require('./resolvers');
+ var resolversPerson = require('./resolvers/person');
+ var resolversDog = require('./resolvers/dog');
  var schema = require('./schema');
 
  var node_acl = require('acl');
@@ -11,6 +12,9 @@
  /* set authorization rules from file acl_rules.js */
  acl.allow(aclRules);
 
+ /* relationships */
+ require('./models/relationships');
+
  /* Schema */
 var Schema = buildSchema(schema);
 
@@ -18,12 +22,16 @@ var Schema = buildSchema(schema);
   TODO: function to just copy the resolvers to root object
 */
  var root = {
-   people: resolvers.people,
-   readOne: resolvers.readOne,
-   readAll: resolvers.readAll,
-   addPerson: resolvers.addPerson,
-   deletePerson: resolvers.deletePerson,
-   updatePerson: resolvers.updatePerson
+   people: resolversPerson.people,
+   readOne: resolversPerson.readOne,
+   readAll: resolversPerson.readAll,
+   addPerson: resolversPerson.addPerson,
+   deletePerson: resolversPerson.deletePerson,
+   updatePerson: resolversPerson.updatePerson,
+   //Dog resolvers
+   addDog: resolversDog.addDog,
+   readDog: resolversDog.readDog,
+   dogs: resolversDog.dogs
  };
 
  /* Server */
