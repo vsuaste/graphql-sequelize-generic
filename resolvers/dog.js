@@ -13,19 +13,18 @@ module.exports = {
 
  addDog: function({name,breed}, context){
      return dog.create({name,breed}).
-     then( person =>{
-       return person;
+     then( dog =>{
+       return dog;
      });
  },
 
  updateDog: function({name,breed},context){
-       return person
+       return dog
        .findById(id)
-       .then( person => {
-         return person.update({
-           firstName: firstName || person.firstName,
-           lastName: lastName || person.lastName,
-           email: email || person.email,
+       .then( dog => {
+         return dog.update({
+           name: name || dog.name,
+           breed: breed || dog.breed,
          })
        });
      }
