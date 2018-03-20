@@ -28,10 +28,12 @@ var Schema = buildSchema(schema);
    addPerson: resolversPerson.addPerson,
    deletePerson: resolversPerson.deletePerson,
    updatePerson: resolversPerson.updatePerson,
+
    //Dog resolvers
    addDog: resolversDog.addDog,
    readDog: resolversDog.readDog,
-   dogs: resolversDog.dogs
+   updateDog: resolversDog.updateDog,
+   dogs: resolversDog.dogs,
  };
 
  /* Server */

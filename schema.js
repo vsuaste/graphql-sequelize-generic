@@ -11,8 +11,11 @@ type Person{
   }
 
   type Dog{
+    id: ID
     name: String!
     breed: String
+    personId: String
+    owner: Person
   }
 
   enum PersonField{
@@ -56,5 +59,6 @@ type Person{
     deletePerson(id: ID!): String!
     updatePerson(id: ID!, firstName: String, lastName: String, email: String): Person!
     addDog(name: String!, breed: String): Dog
+    updateDog(id: ID!,name: String, breed: String, personId: ID): Dog
   }
 `
