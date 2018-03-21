@@ -33,7 +33,6 @@ var Schema = buildSchema(schema);
    addDog: resolversDog.addDog,
    readDog: resolversDog.readDog,
    updateDog: resolversDog.updateDog,
-   dogs: resolversDog.dogs,
  };
 
  /* Server */

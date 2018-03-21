@@ -7,10 +7,13 @@ const{person} = require('../models/person');
   relationship with another model
 */
 dog.prototype.owner = function(){
-  return person.findOne({where: {id: this.personId}});
+  //return person.findOne({where: {id: this.personId}});
+  return this.getPerson();
 };
 
-
+/*
+    Resolvers for basic CRUD operations
+*/
 module.exports = {
 
   dogs: function(_,context){
@@ -21,8 +24,8 @@ module.exports = {
    return dog.findOne({where: {id: id}});
  },
 
- addDog: function({name,breed}, context){
-     return dog.create({name,breed}).
+ addDog: function({name,breed,personId}, context){
+     return dog.create({name,breed,personId}).
      then( dog =>{
        return dog;
      });

@@ -8,6 +8,8 @@ type Person{
     email: String!
     token: String
     role: String
+    dogs: [Dog]
+    filterDogs(search: searchArgInput): [Dog]
   }
 
   type Dog{
@@ -16,6 +18,7 @@ type Person{
     breed: String
     personId: String
     owner: Person
+    person: Person
   }
 
   enum PersonField{
@@ -25,7 +28,21 @@ type Person{
     email
   }
 
-  enum PersonOperator{
+  enum DogField{
+    name
+    breed
+  }
+
+  enum SearchField{
+    id
+    firstName
+    lastName
+    email
+    name
+    breed
+  }
+
+  enum Operator{
     like
     or
     and
@@ -34,15 +51,15 @@ type Person{
     in
   }
 
-  input personValue{
+  input typeValue{
     type: String
     value: String!
   }
 
   input searchArgInput{
-    field: PersonField
-    value: personValue
-    operator: PersonOperator
+    field: SearchField
+    value: typeValue
+    operator: Operator
     searchArg: [searchArgInput]
   }
 
@@ -58,7 +75,7 @@ type Person{
     addPerson(firstName: String!, lastName: String, email: String!, password: String!, role: String): Person!
     deletePerson(id: ID!): String!
     updatePerson(id: ID!, firstName: String, lastName: String, email: String): Person!
-    addDog(name: String!, breed: String): Dog
+    addDog(name: String!, breed: String, personId: ID): Dog
     updateDog(id: ID!,name: String, breed: String, personId: ID): Dog
   }
 `

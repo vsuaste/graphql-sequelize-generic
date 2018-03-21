@@ -9,6 +9,18 @@
 
  var secret = 'something-secret';
 
+ /*
+   Resolvers for generated attributes given a
+   relationship with another model
+ */
+ //person.prototype.dogs = function(){
+  // return this.getDogs();
+ //};
+ person.prototype.filterDogs = function({search}, context) {
+  let arg_sequelize = (new searchArg(search)).toSequelize();
+  return this.getDogs({where: arg_sequelize});
+}
+
  module.exports = {
 
    people: function(_,context){
@@ -40,7 +52,7 @@
   },
 
   readOne: function({id}){
-    return person.findOne({where: {id: id}});
+    return person.findOne({where: {id: id}, include:[{all: true}]});
   },
 
   addPerson: function({firstName,lastName,email,password,role}, context){
