@@ -17,8 +17,9 @@
   // return this.getDogs();
  //};
  person.prototype.filterDogs = function({search}, context) {
-  let arg_sequelize = (new searchArg(search)).toSequelize();
-  return this.getDogs({where: arg_sequelize});
+   let arg = new searchArg(search);
+   let arg_sequelize = arg.toSequelize();
+   return this.getDogs({where: arg_sequelize});
 }
 
  module.exports = {

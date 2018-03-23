@@ -1,9 +1,10 @@
  var express = require('express');
+ var path = require('path');
  var graphqlHTTP = require('express-graphql');
  var {buildSchema} = require('graphql');
  var resolversPerson = require('./resolvers/person');
  var resolversDog = require('./resolvers/dog');
- var schema = require('./schema');
+ var mergeSchema = require('./utils/merge-schemas');
 
  var node_acl = require('acl');
  var {aclRules} = require('./acl_rules');
@@ -16,7 +17,8 @@
  require('./models/relationships');
 
  /* Schema */
-var Schema = buildSchema(schema);
+var merged_schema = mergeSchema( path.join(__dirname, './schemas'));
+var Schema = buildSchema(merged_schema);
 
 /* Resolvers
   TODO: function to just copy the resolvers to root object
