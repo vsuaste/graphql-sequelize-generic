@@ -20,7 +20,7 @@ var merged_schema = mergeSchema( path.join(__dirname, './schemas'));
 var Schema = buildSchema(merged_schema);
 
 /* Resolvers*/
-var resolvers = require('./resolvers/export-root');
+var resolvers = require('./resolvers/index');
 
  /* Server */
  const APP_PORT = 3000;
