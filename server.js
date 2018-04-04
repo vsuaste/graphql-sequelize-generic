@@ -2,13 +2,12 @@
  var path = require('path');
  var graphqlHTTP = require('express-graphql');
  var {buildSchema} = require('graphql');
- var resolversPerson = require('./resolvers/person');
- var resolversDog = require('./resolvers/dog');
  var mergeSchema = require('./utils/merge-schemas');
 
  var node_acl = require('acl');
  var {aclRules} = require('./acl_rules');
  var acl = new node_acl(new node_acl.memoryBackend());
+
 
  /* set authorization rules from file acl_rules.js */
  acl.allow(aclRules);
@@ -20,22 +19,8 @@
 var merged_schema = mergeSchema( path.join(__dirname, './schemas'));
 var Schema = buildSchema(merged_schema);
 
-/* Resolvers
-  TODO: function to just copy the resolvers to root object
-*/
- var root = {
-   people: resolversPerson.people,
-   readOne: resolversPerson.readOne,
-   readAll: resolversPerson.readAll,
-   addPerson: resolversPerson.addPerson,
-   deletePerson: resolversPerson.deletePerson,
-   updatePerson: resolversPerson.updatePerson,
-
-   //Dog resolvers
-   addDog: resolversDog.addDog,
-   readDog: resolversDog.readDog,
-   updateDog: resolversDog.updateDog,
- };
+/* Resolvers*/
+var resolvers = require('./resolvers/export-root');
 
  /* Server */
  const APP_PORT = 3000;
@@ -44,7 +29,7 @@ var Schema = buildSchema(merged_schema);
  //request is passed as context by default
  app.use('/graphql', graphqlHTTP((req)=> ({
    schema: Schema,
-   rootValue: root,
+   rootValue: resolvers,
    pretty: true,
    graphiql: true,
    context: {
